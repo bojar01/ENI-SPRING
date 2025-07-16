@@ -46,7 +46,6 @@ public class Jeu {
 	private int nbExemplairesDisponibles;
 
 	// Référence DBRef
-	@DBRef
 	@Field("genres")
 	private List<Genre> genres = new ArrayList<>();
 

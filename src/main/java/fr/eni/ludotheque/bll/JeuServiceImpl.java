@@ -43,15 +43,14 @@ public class JeuServiceImpl implements JeuService{
 
 	@Override
 	public List<Jeu> listeJeuxCatalogue(String filtreTitre) {
-		List<Jeu> jeux = jeuRepository.findAll();
-
-//		for(Jeu jeu : jeux) {
-//			int nbExemplairesDisponibles = exemplaireRepository.nbExemplairesDisponibleByNoJeu(jeu.getNoJeu());
-//			jeu.setNbExemplairesDisponibles(nbExemplairesDisponibles);
-//		}
-
+		List<Jeu> jeux = jeuRepository.findAllJeuxAvecNbExemplaires(filtreTitre);
+		
+		for(Jeu jeu : jeux) {
+			int nbExemplairesDisponibles = exemplaireRepository.nbExemplairesDisponibleByNoJeu(jeu.getNoJeu());
+			jeu.setNbExemplairesDisponibles(nbExemplairesDisponibles);
+		}
+		
 		return jeux;
 	}
-	
 
 }
