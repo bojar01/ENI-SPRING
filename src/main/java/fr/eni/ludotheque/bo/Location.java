@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Location {
 
 	@Id
-	private String noLocation; // MongoDB utilise String pour les IDs
+	private String noLocation;
 
 	@EqualsAndHashCode.Include
 	@Field("date_debut")
@@ -29,7 +29,6 @@ public class Location {
 	@Field("tarif_jour")
 	private float tarifJour;
 
-	// Relations avec MongoDB: Référence par DBRef
 	@EqualsAndHashCode.Include
 	@DBRef
 	@Field("client")
