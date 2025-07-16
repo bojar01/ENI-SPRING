@@ -6,11 +6,11 @@ import fr.eni.ludotheque.bo.Jeu;
 import fr.eni.ludotheque.bo.Location;
 import fr.eni.ludotheque.dal.ClientRepository;
 import fr.eni.ludotheque.dto.LocationDTO;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +26,8 @@ public class LocationServiceTestIntegration {
     @Autowired
     private ClientRepository clientRepository;
 
+
     @Test
-    @Transactional
     public void testAjoutLocation() {
         //Arrange
         Client client = clientRepository.findByNoTelephone("123456789");
@@ -46,7 +46,6 @@ public class LocationServiceTestIntegration {
 
 
     @Test
-    @Transactional
     @DisplayName("Test du retour d'exemplaire et creation de la facture")
     public void testRetourExemplairesEtCreationFacture() {
         //Arrange
@@ -70,7 +69,6 @@ public class LocationServiceTestIntegration {
 
     @Test
     @DisplayName("Test payer facture")
-    @Transactional
     public void testPayerFacture() {
         //Arrange
         Client client = clientRepository.findByNoTelephone("123456789");

@@ -1,13 +1,13 @@
 package fr.eni.ludotheque.dal;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import fr.eni.ludotheque.bo.Exemplaire;
 
-public interface ExemplaireRepository extends JpaRepository<Exemplaire, Integer>{
-
+public interface ExemplaireRepository extends MongoRepository<Exemplaire, String> {
+/*
 	@Query(nativeQuery = true,
 			value="select count(e.codebarre) from jeux j inner join exemplaires e "
 					+ "on j.no_jeu = e.no_jeu "
@@ -19,6 +19,7 @@ public interface ExemplaireRepository extends JpaRepository<Exemplaire, Integer>
 					+ "and l.no_exemplaire = e.no_exemplaire) "
 					+ " group by e.codebarre ")
 	int nbExemplairesDisponibleByNoJeu(@Param("noJeu") Integer noJeu);
+	*/
 	
 	//@Query("SELECT e FROM Exemplaire e JOIN FETCH e.jeu WHERE e.codebarre = :codebarre")
 	//Exemplaire findByCodebarreWithJeu(@Param("codebarre") String codebarre);

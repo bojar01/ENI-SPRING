@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LocationDTO {
-    private Integer noClient;
+    private String noClient;
     private String codebarre;
 
 }

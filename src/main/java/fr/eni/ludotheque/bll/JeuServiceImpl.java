@@ -31,7 +31,7 @@ public class JeuServiceImpl implements JeuService{
 
 
 	@Override
-	public Jeu trouverJeuParNoJeu(Integer noJeu) {
+	public Jeu trouverJeuParNoJeu(String noJeu) {
 		Optional<Jeu> optJeu = jeuRepository.findById(noJeu);
 		
 		if(optJeu.isEmpty()) {
@@ -40,7 +40,7 @@ public class JeuServiceImpl implements JeuService{
 		return optJeu.get();
 		
 	}
-
+/*
 
 	@Override
 	public List<Jeu> listeJeuxCatalogue(String filtreTitre) {
@@ -53,7 +53,7 @@ public class JeuServiceImpl implements JeuService{
 		
 		return jeux;
 	}
-
+*/
 	
 
 }

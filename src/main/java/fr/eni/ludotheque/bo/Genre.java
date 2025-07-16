@@ -1,15 +1,14 @@
 package fr.eni.ludotheque.bo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-@Entity
-@Table(name="GENRES")
+@Document(collection = "Genres")
 public class Genre {
 	@Id
 	@NonNull

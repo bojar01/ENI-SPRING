@@ -12,10 +12,10 @@ public interface ClientService {
 
 	public List<Client> trouverClientsParNom(String nom);
 
-	public Client modifierClient(Integer noClient, ClientDTO clientDto);
+	public Client modifierClient(String noClient, ClientDTO clientDto);
 
-	public Client trouverClientParId(Integer id);
+	public Client trouverClientParId(String id);
 
-	public Client modifierAdresse(Integer noClient, AdresseDTO adresseDto) ;
+	public Client modifierAdresse(String noClient, AdresseDTO adresseDto) ;
 
 }

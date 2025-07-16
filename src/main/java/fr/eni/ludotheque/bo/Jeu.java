@@ -1,7 +1,11 @@
 package fr.eni.ludotheque.bo;
 
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,44 +14,47 @@ import java.util.List;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
-@Table(name="JEUX")
+@Document(collection = "jeux")
 public class Jeu {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="no_jeu")
-	private Integer noJeu;
-	
-	@Column( length=50, nullable=false)
+	private String noJeu; // MongoDB utilise String pour les IDs
+
+	@Field("titre")
 	@NonNull
 	private String titre;
 
 	@EqualsAndHashCode.Include
-	@Column(length=13, nullable=false, unique=true)
-	@NonNull private String reference;
-	
-	@Column(nullable=true)
+	@Field("reference")
+	@NonNull
+	private String reference;
+
+	@Field("age_min")
 	private int ageMin;
-	
-	@Column( nullable=true)
+
+	@Field("description")
 	private String description;
 
+	@Field("duree")
 	private int duree;
-	
-	@Column(nullable=false)
+
+	@Field("tarif_jour")
 	@NonNull
 	private Float tarifJour;
 
 	@Transient
 	private int nbExemplairesDisponibles;
-	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "JEUX_GENRES", 
-		joinColumns = @JoinColumn(name="no_jeu"),
-		inverseJoinColumns = @JoinColumn(name="no_genre"))
+
+	// Référence DBRef
+	@DBRef
+	@Field("genres")
 	private List<Genre> genres = new ArrayList<>();
-	
+
 	public void addGenre(Genre g) {
 		genres.add(g);
+	}
+
+	public void removeGenre(Genre g) {
+		genres.remove(g);
 	}
 }

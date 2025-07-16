@@ -1,7 +1,10 @@
 package fr.eni.ludotheque.bo;
 
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 
@@ -9,30 +12,33 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
-@Table(name = "LOCATIONS")
+@Document(collection = "Locations")
 public class Location {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer noLocation;
+	private String noLocation; // MongoDB utilise String pour les IDs
 
 	@EqualsAndHashCode.Include
-	@Basic(optional = false)
-	@NonNull private LocalDateTime dateDebut;
-	@Basic(optional = true)
+	@Field("date_debut")
+	@NonNull
+	private LocalDateTime dateDebut;
+
+	@Field("date_retour")
 	private LocalDateTime dateRetour;
-	@Basic(optional = false)
+
+	@Field("tarif_jour")
 	private float tarifJour;
 
+	// Relations avec MongoDB: Référence par DBRef
 	@EqualsAndHashCode.Include
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name="no_client")
-	@NonNull private Client client;
+	@DBRef
+	@Field("client")
+	@NonNull
+	private Client client;
 
 	@EqualsAndHashCode.Include
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name="no_exemplaire")
-	@NonNull private Exemplaire exemplaire;
-	
-
+	@DBRef
+	@Field("exemplaire")
+	@NonNull
+	private Exemplaire exemplaire;
 }

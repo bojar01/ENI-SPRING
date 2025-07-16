@@ -39,7 +39,7 @@ public class ClientServiceTest {
 		Adresse adresse = new Adresse("rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
 		Client client = new Client("n1", "p1", "e1", adresse);
 		client.setNoTelephone("tel1");
-		client.setNoClient(999);
+		client.setNoClient("999");
 
 		/*
 		org.mockito.Mockito.doAnswer((invocation) -> {
@@ -64,9 +64,9 @@ public class ClientServiceTest {
 	@DisplayName("Trouver un client par id cas id est connu")
 	public void testTrouverClientParIdCasIdConnu() {
 		//Arrange
-		Integer idClientRecherche = 99;
+		String idClientRecherche = "99";
 		Adresse adresse = new Adresse("rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
-		Client clientATrouver = new Client("n1", "p1", "e1",  adresse);
+		Client clientATrouver = new Client("n1", "p1", "e1", adresse);
 		clientATrouver.setNoTelephone("tel1");
 		when(clientRepository.findById(idClientRecherche)).thenReturn(Optional.of(clientATrouver));
 
@@ -82,7 +82,7 @@ public class ClientServiceTest {
 	@DisplayName("Trouver un client par id cas id est inconnu-doit renvoyer une exception ")
 	public void testTrouverClientParIdCasIdIncconnu() {
 		//Arrange
-		Integer idClientRecherche = 99;
+		String idClientRecherche = "99";
 		when(clientRepository.findById(idClientRecherche)).thenReturn(Optional.empty());
 
 		//Act + Assert
@@ -103,7 +103,7 @@ public class ClientServiceTest {
 		//Arrange
 		String nom = "DUP";
 		Adresse adresse = new Adresse("rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
-		Client clientATrouver = new Client("DUPIEUX", "Quentin", "e1",  adresse);
+		Client clientATrouver = new Client("DUPIEUX", "Quentin", "e1", adresse);
 		clientATrouver.setNoTelephone("tel1");
 		Adresse adresse2 = new Adresse("rue 2", "44860", "Saint Aignan Grand Lieu");
 		Client clientATrouver2 = new Client("DUPONT", "Jacques", "e2", adresse2);
