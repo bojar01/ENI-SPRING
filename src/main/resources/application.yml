@@ -3,8 +3,8 @@ spring:
     name: ludotheque
   data:
     mongodb:
-      username: admin
-      password: admin
+      username: root
+      password: root
       host: localhost
       port: 27017
       database: DEMO_ENI_Ecole

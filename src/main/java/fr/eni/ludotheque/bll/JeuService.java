@@ -10,6 +10,6 @@ public interface JeuService {
 	
 	Jeu trouverJeuParNoJeu(String noJeu);
 	
-	//List<Jeu> listeJeuxCatalogue(String filtreTitre);
+	List<Jeu> listeJeuxCatalogue(String filtreTitre);
 		
 }
