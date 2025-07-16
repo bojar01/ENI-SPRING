@@ -9,10 +9,10 @@ import fr.eni.ludotheque.dal.FactureRepository;
 import fr.eni.ludotheque.dal.JeuRepository;
 import fr.eni.ludotheque.dal.LocationRepository;
 import fr.eni.ludotheque.dto.LocationDTO;
-import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -68,7 +68,7 @@ public class LocationServiceImpl implements LocationService{
         return factureRepository.save(facture);
 	}
 
-	public Facture payerFacture( Integer noFacture){
+	public Facture payerFacture( String noFacture){
 		Facture facture = factureRepository.findById(noFacture).orElse(null);
 		facture.setDatePaiement(LocalDateTime.now());
 		Facture factureBD = factureRepository.save(facture);

@@ -1,9 +1,9 @@
 package fr.eni.ludotheque.dal;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import fr.eni.ludotheque.bo.Genre;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface GenreRepository extends JpaRepository<Genre, Integer>{
+public interface GenreRepository extends MongoRepository<Genre, Integer> {
 
 }

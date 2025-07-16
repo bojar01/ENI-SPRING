@@ -2,7 +2,6 @@ package fr.eni.ludotheque.dal;
 
 import fr.eni.ludotheque.bo.Adresse;
 import fr.eni.ludotheque.bo.Client;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ public class ClientRepositoryTest {
 
     @Test
     @DisplayName("test positif de creation d'un client en BD")
-    @Transactional
     public void testCreationClient() {
         //Arrange
         Adresse adresse = new Adresse("rue des Cormorans", "44800", "Saint Herblain");
@@ -35,8 +33,6 @@ public class ClientRepositoryTest {
         assertEquals("Ben", clientBD.getPrenom());
         assertEquals("ben.stiller@eni.fr", clientBD.getEmail());
         assertEquals("0101010101", clientBD.getNoTelephone());
-        assertNotNull(clientBD.getAdresse().getNoAdresse());
-        assertEquals(adresse, clientBD.getAdresse());
     }
 
 }

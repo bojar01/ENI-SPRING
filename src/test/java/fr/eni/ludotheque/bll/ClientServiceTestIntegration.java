@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +32,6 @@ public class ClientServiceTestIntegration {
 
 	@Test
 	@DisplayName("Trouver les clients dont le nom commence par")
-	@Transactional
 	public void testTrouverClientsDontLeNomCommencePar() {
 		//Arrange
 		String nom = "DUP";
@@ -54,7 +52,6 @@ public class ClientServiceTestIntegration {
 
 	@Test
 	@DisplayName("Test modification complète client")
-	@Transactional
 	public void testModifierClientEtAdresseCasPositif() {
 		// Arrange
 		ClientDTO clientDto = new ClientDTO("nX", "pX", "eX", "telX","rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
@@ -84,7 +81,6 @@ public class ClientServiceTestIntegration {
 
 	@Test
 	@DisplayName("Test modification complète client cas client non trouvé")
-	@Transactional
 	public void testModifierClientEtAdresseCasClientNonTrouve() {
 		// Arrange
 		ClientDTO clientDto = new ClientDTO("nX", "pX", "eX", "telX","rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
@@ -92,14 +88,13 @@ public class ClientServiceTestIntegration {
 
 		// Act
 		// Assert
-		assertThrows(DataNotFound.class, ()-> clientService.modifierClient(9999,clientDto));
+		assertThrows(DataNotFound.class, ()-> clientService.modifierClient("9999",clientDto));
 
 	}
 
 
 	@Test
 	@DisplayName("Test modification de l'adresse d'un client")
-	@Transactional
 	public void testModificationAdresseCasPositif() {
 		// Arrange
 		Adresse adresse = new Adresse("rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
