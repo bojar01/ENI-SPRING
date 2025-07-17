@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Adresse {
 	@Id
 	@EqualsAndHashCode.Exclude
-	private Integer noAdresse;
+	private String noAdresse;
 	
 	@Field("rue")
 	@NonNull private String rue;

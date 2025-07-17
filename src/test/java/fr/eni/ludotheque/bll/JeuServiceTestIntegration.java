@@ -5,19 +5,24 @@ import fr.eni.ludotheque.bo.Jeu;
 import fr.eni.ludotheque.dal.JeuRepository;
 import fr.eni.ludotheque.exceptions.DataNotFound;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest
 @Slf4j
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class JeuServiceTestIntegration {
 
 	@Autowired
@@ -26,7 +31,15 @@ public class JeuServiceTestIntegration {
 	@Autowired
 	private JeuRepository jeuRepository;
 
-	
+	@Autowired
+	private MongoTemplate mongoTemplate;
+
+	@BeforeEach
+	void cleanDatabase() {
+		mongoTemplate.getDb().drop();
+	}
+
+
 	@Test
 	@DisplayName("Test ajout jeu")
 	public void testAjoutJeu() {
@@ -62,9 +75,22 @@ public class JeuServiceTestIntegration {
 	@DisplayName("Trouver un jeu par son numéro de jeu")
 	public void testTrouverJeuParNoJeu() {
 		//Arrange
-		Jeu welcome = jeuRepository.findByReference("refWelcome");
+		Genre hackAndSlash = new Genre(1,"hash and slash");
+		Genre plateforme = new Genre(2,"plateforme");
+
+		Jeu jeu = new Jeu("50 missions", "refWelcome", 10.2f);
+		jeu.setDescription("Description de 50 missions");
+		jeu.setDuree(20);
+		jeu.setAgeMin(8);
+
+		jeu.addGenre(hackAndSlash);
+		jeu.addGenre(plateforme);
+
+		// Act
+		jeuService.ajouterJeu(jeu);
 
 		//Act
+		Jeu welcome = jeuRepository.findByReference("refWelcome");
 		Jeu jeuDB = null;
 		try {
 			jeuDB = jeuService.trouverJeuParNoJeu(welcome.getNoJeu());
@@ -79,7 +105,7 @@ public class JeuServiceTestIntegration {
 
 
 	}
-/*
+
 	@Test
 	@DisplayName("Test trouver les jeux et le nb d'exemplaires disponible")
 	public void testTrouverJeuxDisponibles() {
@@ -89,7 +115,11 @@ public class JeuServiceTestIntegration {
 		jeux.forEach(System.out::println);
 		System.out.println("------------------------------------------------------------------");
 		log.info(jeux.toString());
+
+		for (Jeu jeu : jeux) {
+			assertNotNull(jeu.getReference());
+		}
 	}
 
-*/
+
 }

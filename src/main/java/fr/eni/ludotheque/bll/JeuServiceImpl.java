@@ -23,6 +23,7 @@ public class JeuServiceImpl implements JeuService{
 	
 	@Override
 	public void ajouterJeu(Jeu jeu) {
+
 		
 		jeuRepository.save(jeu);
 		
@@ -40,20 +41,17 @@ public class JeuServiceImpl implements JeuService{
 		return optJeu.get();
 		
 	}
-/*
 
 	@Override
 	public List<Jeu> listeJeuxCatalogue(String filtreTitre) {
-		List<Jeu> jeux = jeuRepository.findAllJeuxAvecNbExemplaires(filtreTitre);
-		
-		for(Jeu jeu : jeux) {
-			int nbExemplairesDisponibles = exemplaireRepository.nbExemplairesDisponibleByNoJeu(jeu.getNoJeu());
-			jeu.setNbExemplairesDisponibles(nbExemplairesDisponibles);
+		List<Jeu> jeux = jeuRepository.findAll();
+		System.out.println(jeux);
+
+		if(jeux.isEmpty()) {
+			throw new DataNotFound("Jeu", filtreTitre);
 		}
 		
 		return jeux;
 	}
-*/
-	
 
 }

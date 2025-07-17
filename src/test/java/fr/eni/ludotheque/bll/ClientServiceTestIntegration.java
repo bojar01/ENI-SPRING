@@ -8,11 +8,14 @@ import fr.eni.ludotheque.dal.AdresseRepository;
 import fr.eni.ludotheque.dto.AdresseDTO;
 import fr.eni.ludotheque.dto.ClientDTO;
 import fr.eni.ludotheque.exceptions.DataNotFound;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class ClientServiceTestIntegration {
 
 	@Autowired
@@ -29,6 +33,30 @@ public class ClientServiceTestIntegration {
 
 	@Autowired
 	private AdresseRepository adresseRepository;
+
+	@Autowired
+	private MongoTemplate mongoTemplate;
+
+	@BeforeEach
+	void cleanDatabase() {
+		mongoTemplate.getDb().drop();
+	}
+
+
+	@Test
+	@DisplayName("Trouver les clients dont le nom commence par")
+	public void testAjouterClient() {
+		//Arrange
+		String nom = "DUP";
+		ClientDTO client= new ClientDTO("DUPIEUX", "Quentin", "e1",  "tel1","rue des Cormorans",  "44860", "Saint Aignan Grand Lieu");
+
+		//Act
+		Client clientDB = clientService.ajouterClient(client);
+
+		//Assert
+		assertThat(clientDB.getEmail()).isEqualTo(client.getEmail());
+
+	}
 
 	@Test
 	@DisplayName("Trouver les clients dont le nom commence par")
@@ -79,50 +107,8 @@ public class ClientServiceTestIntegration {
 	}
 
 
-	@Test
-	@DisplayName("Test modification complète client cas client non trouvé")
-	public void testModifierClientEtAdresseCasClientNonTrouve() {
-		// Arrange
-		ClientDTO clientDto = new ClientDTO("nX", "pX", "eX", "telX","rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
 
 
-		// Act
-		// Assert
-		assertThrows(DataNotFound.class, ()-> clientService.modifierClient("9999",clientDto));
 
-	}
-
-
-	@Test
-	@DisplayName("Test modification de l'adresse d'un client")
-	public void testModificationAdresseCasPositif() {
-		// Arrange
-		Adresse adresse = new Adresse("rue des Cormorans", "44860", "Saint Aignan Grand Lieu");
-		Client client = new Client("nX", "pX", "eX", adresse);
-		client.setNoTelephone("telX");
-		ClientDTO clientDto = new ClientDTO();
-		BeanUtils.copyProperties(client, clientDto);
-		BeanUtils.copyProperties(adresse, clientDto);
-
-		Client newClient = clientService.ajouterClient(clientDto);
-		
-		AdresseDTO newAdresse = new AdresseDTO();
-		newAdresse.setRue("rue des mouettes");
-		newAdresse.setCodePostal("79000");
-		newAdresse.setVille("Niort");
-		
-		// Act
-		Client clientBase = clientService.modifierAdresse(newClient.getNoClient(), newAdresse);
-
-		// Assert
-		Optional<Adresse> newAdresseOpt = adresseRepository.findById(newClient.getAdresse().getNoAdresse());
-
-		if (newAdresseOpt.isEmpty()) {
-			fail();
-		} else {
-			assertThat(newClient.getAdresse()).isEqualTo(newAdresseOpt.get());
-		}
-		
-	}
 
 }

@@ -18,7 +18,7 @@ import java.util.List;
 public class Jeu {
 
 	@Id
-	private String noJeu; // MongoDB utilise String pour les IDs
+	private String noJeu;
 
 	@Field("titre")
 	@NonNull
@@ -45,8 +45,6 @@ public class Jeu {
 	@Transient
 	private int nbExemplairesDisponibles;
 
-	// Référence DBRef
-	@DBRef
 	@Field("genres")
 	private List<Genre> genres = new ArrayList<>();
 

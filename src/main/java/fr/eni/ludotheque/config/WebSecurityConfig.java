@@ -17,10 +17,9 @@ public class WebSecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((requests) -> requests
-//                        .requestMatchers(HttpMethod.GET, "/api/jeux/").permitAll()
-//                        .requestMatchers(HttpMethod.POST, "/api/*").permitAll()
-//                        .requestMatchers(HttpMethod.PUT, "/api/*").permitAll()
-                        .anyRequest().permitAll() // Permettre toutes les requêtes pour l'instant;
+                                .requestMatchers(HttpMethod.POST, "/api/jeux").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/jeux").permitAll()
+                                .anyRequest().permitAll()
                 );
 
         return http.build();

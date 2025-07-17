@@ -23,7 +23,6 @@ public class Exemplaire {
 	@Field("louable")
 	private boolean louable = true;
 
-	@DBRef
 	@Field("jeu")
 	@NonNull
 	private Jeu jeu;

@@ -7,10 +7,13 @@ import fr.eni.ludotheque.bo.Location;
 import fr.eni.ludotheque.dal.ClientRepository;
 import fr.eni.ludotheque.dto.LocationDTO;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +21,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class LocationServiceTestIntegration {
 
     @Autowired
@@ -25,6 +29,14 @@ public class LocationServiceTestIntegration {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
+    @BeforeEach
+    void cleanDatabase() {
+        mongoTemplate.getDb().drop();
+    }
 
 
     @Test

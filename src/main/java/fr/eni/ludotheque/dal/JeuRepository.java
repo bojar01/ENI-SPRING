@@ -12,11 +12,16 @@ import java.util.List;
 public interface JeuRepository extends MongoRepository<Jeu, String> {
 
 
-    // Ou pour récupérer directement le tarif
+    @Aggregation(pipeline = {
+            "{ $lookup: { from: 'exemplaire', localField: '_id', foreignField: 'jeuId', as: 'exemplaires' } }",
+            "{ $addFields: { nbExemplaires: { $size: '$exemplaires' } } }",
+            "{ $project: { exemplaires: 0 } }"
+    })
+    List<Jeu> findAllJeuxAvecNbExemplaires();
+
+
     @Query(value = "{ 'nom': ?0 }", fields = "{ 'tarifJour': 1 }")
     Float findTarifJour(String nom);
-
-
 
     Jeu findByReference(String reference);
 }
