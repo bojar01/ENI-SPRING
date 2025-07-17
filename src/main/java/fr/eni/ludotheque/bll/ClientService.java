@@ -5,6 +5,7 @@ import fr.eni.ludotheque.dto.AdresseDTO;
 import fr.eni.ludotheque.dto.ClientDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ClientService {
 
@@ -14,10 +15,12 @@ public interface ClientService {
 
 	public Client modifierClient(String noClient, ClientDTO clientDto);
 
-	public Client trouverClientParId(String id);
+	public Optional<Client> trouverClientParId(String id);
 
 	public Client modifierAdresse(String noClient, AdresseDTO adresseDto) ;
 			void supprimerClient(Integer id);
+			List<Client> getAllClients();
+
 
 	public void supprimerClient(String id);
 

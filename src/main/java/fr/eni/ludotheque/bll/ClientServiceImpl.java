@@ -70,13 +70,13 @@ public class ClientServiceImpl implements ClientService{
 	}
 
 	@Override
-	public Client trouverClientParId(String id)  {
+	public Optional<Client> trouverClientParId(String id)  {
 
 		Optional<Client> optClient = clientRepository.findById(id);
 		if(optClient.isEmpty()) {
 			throw new DataNotFound("Client", id);
 		}
-		return optClient.get();
+		return optClient;
 	}
 
 	@Override
@@ -97,6 +97,11 @@ public class ClientServiceImpl implements ClientService{
 //			throw new ClientNotFoundException(id);
 //		}
 		clientRepository.deleteById(String.valueOf(id));
+	}
+
+	@Override
+	public List<Client> getAllClients() {
+		return List.of();
 	}
 
 }
