@@ -91,5 +91,12 @@ public class ClientServiceImpl implements ClientService{
 		return client;
 
 	}
+	@Override
+	public void supprimerClient(Integer id) {
+//		if(!clientRepository.existsById(id)){
+//			throw new ClientNotFoundException(id);
+//		}
+		clientRepository.deleteById(String.valueOf(id));
+	}
 
 }
