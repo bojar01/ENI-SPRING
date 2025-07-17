@@ -20,3 +20,7 @@ logging:
           mongodb:
             core:
               MongoTemplate: DEBUG
+
+jwt:
+  secret: MzJieXRlc2RlY29kZWVuYmFzZTY0cG91clNlY3JldEtleQ==
+  expiration: 3600000  # en millisecondes (ici : 1h)

@@ -1,0 +1,9 @@
+package fr.eni.ludotheque.bll;
+
+import fr.eni.ludotheque.bo.User;
+import org.springframework.security.core.AuthenticationException;
+
+public interface AuthService {
+    String login(String username, String password) throws AuthenticationException;
+    User register(String username, String password) throws AuthenticationException;
+}
