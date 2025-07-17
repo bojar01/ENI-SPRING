@@ -42,7 +42,7 @@ public class LocationServiceImpl implements LocationService{
 		client.setNoClient(locationDto.getNoClient());
 					
 		Location location = new Location(LocalDateTime.now(),client, exemplaire );
-		Float tarifJour = jeuRepository.findTarifJour(exemplaire.getJeu().getNoJeu());
+		Float tarifJour = jeuRepository.findTarifJour(exemplaire.getJeu().get_id());
 		location.setTarifJour(tarifJour);
 		Location newLoc = locationRepository.save(location);
 		

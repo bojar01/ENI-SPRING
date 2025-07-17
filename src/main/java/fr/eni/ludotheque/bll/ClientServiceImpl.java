@@ -51,7 +51,6 @@ public class ClientServiceImpl implements ClientService{
 	}
 
 	@Override
-	/* S2010 - Modification complète d'un client */
 	public Client modifierClient(String noClient, ClientDTO clientDto) {
 		//Client client = clientRepository.findById(noClient).orElseThrow(()->new DataNotFound("Client", noClient));
 		Client client = new Client();
@@ -83,13 +82,14 @@ public class ClientServiceImpl implements ClientService{
 	@Override
 	public Client modifierAdresse(String noClient, AdresseDTO adresseDto) {
 		Client client = clientRepository.findById(noClient).orElseThrow(()->new DataNotFound("Client", noClient));
-
 		BeanUtils.copyProperties(adresseDto, client.getAdresse());
-
 		adresseRepository.save(client.getAdresse());
-
 		return client;
+	}
 
+	@Override
+	public void  supprimerClient(String id) {
+		clientRepository.deleteById(id);
 	}
 	@Override
 	public void supprimerClient(Integer id) {

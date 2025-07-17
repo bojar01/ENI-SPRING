@@ -12,16 +12,37 @@ import java.util.List;
 public interface JeuRepository extends MongoRepository<Jeu, String> {
 
 
-    @Aggregation(pipeline = {
-            "{ $lookup: { from: 'exemplaire', localField: '_id', foreignField: 'jeuId', as: 'exemplaires' } }",
-            "{ $addFields: { nbExemplaires: { $size: '$exemplaires' } } }",
-            "{ $project: { exemplaires: 0 } }"
+
+    @Aggregation({
+            "{ '$lookup': { " +
+                    "'from': 'exemplaires', " +
+                    "'localField': '_id', " +
+                    "'foreignField': 'jeu._id', " +
+                    "'as': 'exemplaires_jeu' " +
+                    "}}",
+            "{ '$addFields': { " +
+                    "'nbExemplairesDisponibles': { " +
+                    "'$size': { " +
+                    "'$filter': { " +
+                    "'input': '$exemplaires_jeu', " +
+                    "'cond': { '$eq': ['$$this.louable', true] } " +
+                    "} " +
+                    "} " +
+                    "} " +
+                    "}}",
+            "{ '$project': { " +
+                    "'_id': 1, " +
+                    "'exemplaires_jeu': 0, " +
+                    "}}"
     })
     List<Jeu> findAllJeuxAvecNbExemplaires();
 
 
-    @Query(value = "{ 'nom': ?0 }", fields = "{ 'tarifJour': 1 }")
-    Float findTarifJour(String nom);
+    @Aggregation(pipeline = {
+            "{ '$match': { '_id': ?0 } }",
+            "{ '$project': { 'tarifJour': 1, '_id': 0 } }"
+    })
+    Float findTarifJour(String id);
 
     Jeu findByReference(String reference);
 }

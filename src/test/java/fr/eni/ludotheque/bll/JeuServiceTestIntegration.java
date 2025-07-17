@@ -55,7 +55,7 @@ public class JeuServiceTestIntegration {
 		jeuService.ajouterJeu(jeu);
 
 		// Assert
-		Optional<Jeu> 	jeuDB = jeuRepository.findById(jeu.getNoJeu());
+		Optional<Jeu> 	jeuDB = jeuRepository.findById(jeu.get_id());
 		if(jeuDB.isEmpty()){
 			fail();
 			return;
@@ -93,7 +93,7 @@ public class JeuServiceTestIntegration {
 		Jeu welcome = jeuRepository.findByReference("refWelcome");
 		Jeu jeuDB = null;
 		try {
-			jeuDB = jeuService.trouverJeuParNoJeu(welcome.getNoJeu());
+			jeuDB = jeuService.trouverJeuParJeu_id(welcome.get_id());
 		}catch(DataNotFound dnf) {
 			fail();
 			return;

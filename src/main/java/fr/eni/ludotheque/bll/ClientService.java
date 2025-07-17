@@ -19,4 +19,6 @@ public interface ClientService {
 	public Client modifierAdresse(String noClient, AdresseDTO adresseDto) ;
 			void supprimerClient(Integer id);
 
+	public void supprimerClient(String id);
+
 }

@@ -18,7 +18,7 @@ import java.util.List;
 public class Jeu {
 
 	@Id
-	private String noJeu;
+	private String _id;
 
 	@Field("titre")
 	@NonNull

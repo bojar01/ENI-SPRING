@@ -8,7 +8,7 @@ public interface JeuService {
 	
 	void ajouterJeu(Jeu jeu);
 	
-	Jeu trouverJeuParNoJeu(String noJeu);
+	Jeu trouverJeuParJeu_id(String noJeu);
 	
 	List<Jeu> listeJeuxCatalogue(String filtreTitre);
 		

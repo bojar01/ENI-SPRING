@@ -18,7 +18,6 @@ public class JeuRepositoryTest {
 	
 	@Test
 	@DisplayName("test création jeu et liens vers genres CAS POSITIF")
-	@Transactional
 	public void testCreationJeu() {
 		//Arrange
 		Jeu jeu = new Jeu("SkyJo", "refSkyJo", 5.6f );
@@ -31,9 +30,9 @@ public class JeuRepositoryTest {
 		Jeu jeuActual = jeuRepository.save(jeu);
 		
 		//Assert
-		Jeu jeuBD = jeuRepository.findById(jeuActual.getNoJeu()).orElse(null);
+		Jeu jeuBD = jeuRepository.findById(jeuActual.get_id()).orElse(null);
 		assertThat(jeuBD).isNotNull();
-		assertThat(jeuBD.getNoJeu()).isNotNull();
+		assertThat(jeuBD.get_id()).isNotNull();
 		assertThat(jeuBD.getTitre()).isEqualTo(jeu.getTitre());
 		assertThat(jeuBD.getDescription()).isEqualTo(jeu.getDescription());
 		assertThat(jeuBD.getAgeMin()).isEqualTo(jeu.getAgeMin());

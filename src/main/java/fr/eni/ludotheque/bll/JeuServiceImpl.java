@@ -32,11 +32,11 @@ public class JeuServiceImpl implements JeuService{
 
 
 	@Override
-	public Jeu trouverJeuParNoJeu(String noJeu) {
-		Optional<Jeu> optJeu = jeuRepository.findById(noJeu);
+	public Jeu trouverJeuParJeu_id(String jeu_id) {
+		Optional<Jeu> optJeu = jeuRepository.findById(jeu_id);
 		
 		if(optJeu.isEmpty()) {
-			throw new DataNotFound("Jeu", noJeu);
+			throw new DataNotFound("Jeu", jeu_id);
 		}
 		return optJeu.get();
 		
@@ -44,7 +44,7 @@ public class JeuServiceImpl implements JeuService{
 
 	@Override
 	public List<Jeu> listeJeuxCatalogue(String filtreTitre) {
-		List<Jeu> jeux = jeuRepository.findAll();
+		List<Jeu> jeux = jeuRepository.findAllJeuxAvecNbExemplaires();
 		System.out.println(jeux);
 
 		if(jeux.isEmpty()) {

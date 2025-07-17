@@ -1,10 +1,9 @@
 package fr.eni.ludotheque.bll;
 
-import fr.eni.ludotheque.bo.Client;
-import fr.eni.ludotheque.bo.Facture;
-import fr.eni.ludotheque.bo.Jeu;
-import fr.eni.ludotheque.bo.Location;
+import fr.eni.ludotheque.bo.*;
 import fr.eni.ludotheque.dal.ClientRepository;
+import fr.eni.ludotheque.dal.ExemplaireRepository;
+import fr.eni.ludotheque.dal.JeuRepository;
 import fr.eni.ludotheque.dto.LocationDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +16,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,19 +32,21 @@ public class LocationServiceTestIntegration {
 
     @Autowired
     private MongoTemplate mongoTemplate;
-
-    @BeforeEach
-    void cleanDatabase() {
-        mongoTemplate.getDb().drop();
-    }
+    @Autowired
+    private ExemplaireRepository exemplaireRepository;
+    @Autowired
+    private JeuRepository jeuRepository;
 
 
     @Test
     public void testAjoutLocation() {
         //Arrange
-        Client client = clientRepository.findByNoTelephone("123456789");
+        String codeBarre = "6666666666666";
+        Client client = clientRepository.findByNoTelephone("0678901234");
+        Exemplaire exemplaire = exemplaireRepository.findByCodebarre(codeBarre);
+        Optional<Jeu> optJeu = jeuRepository.findById(exemplaire.getJeu().get_id());
 
-        LocationDTO locationDTO = new LocationDTO(client.getNoClient(), "6666666666666");
+        LocationDTO locationDTO = new LocationDTO(client.getNoClient(), codeBarre);
 
         //Act
         Location location = locationService.ajouterLocation(locationDTO);
@@ -61,7 +63,7 @@ public class LocationServiceTestIntegration {
     @DisplayName("Test du retour d'exemplaire et creation de la facture")
     public void testRetourExemplairesEtCreationFacture() {
         //Arrange
-        Client client = clientRepository.findByNoTelephone("123456789");
+        Client client = clientRepository.findByNoTelephone("0678901234");
         LocationDTO locationDTO1 = new LocationDTO(client.getNoClient(), "6666666666666");
         Location loc1 = locationService.ajouterLocation(locationDTO1);
         LocationDTO locationDTO2 = new LocationDTO(client.getNoClient(), "1111111111111");
@@ -83,7 +85,7 @@ public class LocationServiceTestIntegration {
     @DisplayName("Test payer facture")
     public void testPayerFacture() {
         //Arrange
-        Client client = clientRepository.findByNoTelephone("123456789");
+        Client client = clientRepository.findByNoTelephone("0678901234");
         LocationDTO locationDTO1 = new LocationDTO(client.getNoClient(), "6666666666666");
         Location loc1 = locationService.ajouterLocation(locationDTO1);
         LocationDTO locationDTO2 = new LocationDTO(client.getNoClient(), "1111111111111");

@@ -41,13 +41,6 @@ public class ClientServiceTest {
 		client.setNoTelephone("tel1");
 		client.setNoClient("999");
 
-		/*
-		org.mockito.Mockito.doAnswer((invocation) -> {
-			Client cli = invocation.getArgument(0);
-			cli.setNoClient(999);
-			return cli;
-						}).when(clientRepository).save(client);
-		 */
 		when(clientRepository.save(any(Client.class))).thenReturn(client);
 
 		//Act
@@ -56,7 +49,7 @@ public class ClientServiceTest {
 		//Assert
 		assertThat(clientActual).isNotNull();
 		assertThat(clientActual.getNoClient()).isNotNull();
-		assertThat(clientActual.getNoClient()).isEqualTo(999);
+		assertThat(clientActual.getNoClient()).isEqualTo("999");
 		
 	}
 
@@ -87,12 +80,6 @@ public class ClientServiceTest {
 
 		//Act + Assert
 		assertThrows(DataNotFound.class, ()->clientService.trouverClientParId(idClientRecherche) );
-/*
-		try{
-			clientRepository.findById(idClientRecherche);
-			fail();
-		}catch(DataNotFound ex){
-*/
 
 
 	}

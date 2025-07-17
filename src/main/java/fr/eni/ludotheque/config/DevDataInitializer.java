@@ -1,8 +1,6 @@
 package fr.eni.ludotheque.config;
 
-import fr.eni.ludotheque.bo.Exemplaire;
-import fr.eni.ludotheque.bo.Genre;
-import fr.eni.ludotheque.bo.Jeu;
+import fr.eni.ludotheque.bo.*;
 import fr.eni.ludotheque.dal.ClientRepository;
 import fr.eni.ludotheque.dal.ExemplaireRepository;
 import fr.eni.ludotheque.dal.GenreRepository;
@@ -86,6 +84,32 @@ public class DevDataInitializer implements CommandLineRunner {
         List<Jeu> jeux = jeuRepository.saveAll(Arrays.asList(pandemic, welcome));
         Jeu savedPandemic = jeux.get(0);
         Jeu savedWelcome = jeux.get(1);
+
+
+        // Insérer les clients
+        List<Client> clients = Arrays.asList(
+                new Client("Martin", "Jean", "jean.martin@email.com",
+                        new Adresse("123 rue de la Paix", "75001", "Paris")),
+
+                new Client("Durand", "Marie", "marie.durand@email.com",
+                        new Adresse("456 avenue des Champs", "69001", "Lyon")),
+
+                new Client("Lemoine", "Pierre", "pierre.lemoine@email.com",
+                        new Adresse("789 boulevard Saint-Michel", "13001", "Marseille")),
+
+                new Client("Bernard", "Sophie", "sophie.bernard@email.com",
+                        new Adresse("321 rue du Commerce", "33000", "Bordeaux")),
+
+                new Client("Rousseau", "Antoine", "antoine.rousseau@email.com",
+                        new Adresse("654 place de la République", "44000", "Nantes"))
+        );
+
+        // Ajouter des numéros de téléphone à certains clients
+        clients.get(0).setNoTelephone("0123456789");
+        clients.get(2).setNoTelephone("0678901234");
+        clients.get(4).setNoTelephone("0145678901");
+
+        clientRepository.saveAll(clients);
 
 
         List<Exemplaire> exemplaires = Arrays.asList(
