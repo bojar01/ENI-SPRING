@@ -5,12 +5,12 @@ spring:
     name: ludotheque
   data:
     mongodb:
-      username: root
-      password: root
+#      username: root
+#      password: root
       host: localhost
       port: 27017
       database: DEMO_ENI_Ecole
-      authentication-database: admin
+#      authentication-database: admin
 
 logging:
   level:

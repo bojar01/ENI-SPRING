@@ -71,8 +71,12 @@ public class ClientServiceTest {
 		when(clientRepository.findById(idClientRecherche)).thenReturn(Optional.of(clientATrouver));
 
 		//Act
-		Client client = clientService.trouverClientParId(idClientRecherche);
+		Optional<Client> optClient = clientService.trouverClientParId(idClientRecherche);
 
+		if(optClient.isEmpty()) {
+		throw new DataNotFound(" ", optClient );
+		}
+		Client client = optClient.get();
 		//Assert
 		assertThat(client).isEqualTo(clientATrouver);
 

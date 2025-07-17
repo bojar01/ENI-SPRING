@@ -96,7 +96,11 @@ public class ClientServiceTestIntegration {
 		clientService.modifierClient(newClient.getNoClient(),clientDto);
 
 		// Assert
-		Client client2 = clientService.trouverClientParId(newClient.getNoClient());
+		Optional<Client> optClient2 = clientService.trouverClientParId(newClient.getNoClient());
+		if(optClient2.isEmpty()){
+			throw new DataNotFound(" ", optClient2);
+		}
+		Client client2 = optClient2.get();
 		assertThat(client2.getEmail()).isEqualTo(clientDto.getEmail());
 		assertThat(client2.getNom()).isEqualTo(clientDto.getNom());
 		assertThat(client2.getPrenom()).isEqualTo(clientDto.getPrenom());
