@@ -3,14 +3,19 @@ spring:
     active: dev
   application:
     name: ludotheque
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:5000/realms/ludotheque
   data:
     mongodb:
-      username: root
-      password: root
+#      username: root
+#      password: root
       host: localhost
       port: 27017
       database: DEMO_ENI_Ecole
-      authentication-database: admin
+#      authentication-database: admin
 
 logging:
   level:
