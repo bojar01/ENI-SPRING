@@ -2,6 +2,7 @@ package fr.eni.ludotheque.rest;
 
 import fr.eni.ludotheque.bll.JeuService;
 import fr.eni.ludotheque.bo.Jeu;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

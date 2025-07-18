@@ -8,14 +8,15 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:5000/realms/ludotheque
+          jwk-set-uri: http://localhost:5000/realms/ludotheque/protocol/openid-connect/certs
   data:
     mongodb:
-#      username: root
-#      password: root
+      username: admin
+      password: admin
       host: localhost
       port: 27017
       database: DEMO_ENI_Ecole
-#      authentication-database: admin
+      authentication-database: admin
 
 logging:
   level:

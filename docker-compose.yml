@@ -22,7 +22,9 @@ services:
       - .env
     depends_on:
       - ludo_postgres
-    command: start
+    volumes:
+      - ./keycloak-import:/opt/keycloak/data/import
+    command: [ "start-dev", "--import-realm" ]
     networks:
       - keycloak_network
 
