@@ -23,11 +23,7 @@ public class JeuServiceImpl implements JeuService{
 	
 	@Override
 	public void ajouterJeu(Jeu jeu) {
-
-		
 		jeuRepository.save(jeu);
-		
-		
 	}
 
 
@@ -54,4 +50,26 @@ public class JeuServiceImpl implements JeuService{
 		return jeux;
 	}
 
+	@Override
+	public Jeu update(String id, Jeu jeu) {
+		jeuRepository.findById(id).orElseThrow(() -> new DataNotFound("Jeu", id));
+		jeu.setTitre(jeu.getTitre().trim());
+		jeu.setDescription(jeu.getDescription() != null ? jeu.getDescription().trim() : null);
+		jeu.setGenres(jeu.getGenres() != null ? jeu.getGenres() : List.of());
+		jeu.setDuree(jeu.getDuree() > 0 ? jeu.getDuree() : 0);
+		jeu.setTarifJour(jeu.getTarifJour() != null ? jeu.getTarifJour() : 0f);
+		jeu.setAgeMin(jeu.getAgeMin() >= 0 ? jeu.getAgeMin() : 0);
+		jeu.setDuree(jeu.getDuree() > 0 ? jeu.getDuree() : 0);
+		jeu.setNbExemplairesDisponibles(2); // this is a placeholder
+		return jeuRepository.save(jeu);
+
+	}
+
+	@Override
+	public void delete(String id) {
+		if (!jeuRepository.existsById(id)) {
+			throw new DataNotFound("Jeu", id);
+		}
+		jeuRepository.deleteById(id);
+	}
 }

@@ -11,5 +11,8 @@ public interface JeuService {
 	Jeu trouverJeuParJeu_id(String noJeu);
 	
 	List<Jeu> listeJeuxCatalogue(String filtreTitre);
+
+	Jeu update(String id, Jeu jeu);
+	void delete(String id);
 		
 }
