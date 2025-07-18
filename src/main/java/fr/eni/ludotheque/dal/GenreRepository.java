@@ -4,6 +4,8 @@ package fr.eni.ludotheque.dal;
 import fr.eni.ludotheque.bo.Genre;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface GenreRepository extends MongoRepository<Genre, Integer> {
+import java.util.Optional;
+
+public interface GenreRepository extends MongoRepository<Genre, String> {
 
 }

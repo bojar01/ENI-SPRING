@@ -47,12 +47,12 @@ public class DevDataInitializer implements CommandLineRunner {
 
         // Insérer les genres
         List<Genre> genres = Arrays.asList(
-                new Genre(1, "Jeu de plateau"),
-                new Genre(2, "Jeu de cartes"),
-                new Genre(3, "Jeu de stratégie"),
-                new Genre(4, "Coopératif"),
-                new Genre(5, "Jeu de dé"),
-                new Genre(6, "Jeu d'enquete")
+                new Genre("GE01", "Jeu de plateau"),
+                new Genre("GE02", "Jeu de cartes"),
+                new Genre("GE03", "Jeu de stratégie"),
+                new Genre("GEO4", "Coopératif"),
+                new Genre("GEO5", "Jeu de dé"),
+                new Genre("GEO6", "Jeu d'enquete")
         );
         genreRepository.saveAll(genres);
 

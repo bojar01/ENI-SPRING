@@ -1,0 +1,37 @@
+name: ludotheque
+
+services:
+  ludo_postgres:
+    image: postgres:16.0-alpine
+    container_name: postgres
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - postgres-kc:/var/lib/postgresql/data
+    networks:
+      - keycloak_network
+
+  ludo_keycloak:
+    image: quay.io/keycloak/keycloak:22.0.5
+    container_name: ludo_keycloak
+    ports:
+      - "127.0.0.1:5000:8080"
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - ludo_postgres
+    volumes:
+      - ./keycloak-import:/opt/keycloak/data/import
+    command: [ "start-dev", "--import-realm" ]
+    networks:
+      - keycloak_network
+
+networks:
+  keycloak_network:
+    driver: bridge
+
+volumes:
+  postgres-kc:
+    name: pg-data-ludotheque-kc
