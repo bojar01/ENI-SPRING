@@ -12,8 +12,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Genre {
 	@Id
 	@NonNull
-	private Integer noGenre;
+	private String id;
 
-	@NonNull private String libelle;
+	@NonNull
+	private String libelle;
 	
 }

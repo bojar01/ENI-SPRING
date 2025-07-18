@@ -75,8 +75,8 @@ public class JeuServiceTestIntegration {
 	@DisplayName("Trouver un jeu par son numéro de jeu")
 	public void testTrouverJeuParNoJeu() {
 		//Arrange
-		Genre hackAndSlash = new Genre(1,"hash and slash");
-		Genre plateforme = new Genre(2,"plateforme");
+		Genre hackAndSlash = new Genre("GE01","hash and slash");
+		Genre plateforme = new Genre("GE02","plateforme");
 
 		Jeu jeu = new Jeu("50 missions", "refWelcome", 10.2f);
 		jeu.setDescription("Description de 50 missions");

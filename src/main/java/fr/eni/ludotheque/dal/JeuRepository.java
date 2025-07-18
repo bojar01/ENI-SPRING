@@ -10,9 +10,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface JeuRepository extends MongoRepository<Jeu, String> {
-
-
-
     @Aggregation({
             "{ '$lookup': { " +
                     "'from': 'exemplaires', " +
